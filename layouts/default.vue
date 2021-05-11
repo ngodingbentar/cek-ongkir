@@ -6,27 +6,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from '@nuxtjs/composition-api'
+import {defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   name: 'Footer',
   props: {
-    // theme: {
-    //   type: Object,
-    //   required: true,
-    // },
   },
   setup() {
-    const { store, route, app } = useContext()
-    console.log('route', route.value)
-
-    const isAgama = computed(() => {
-      if(route.value.name === 'agama'){
-        return true
-      }
-    })
 
     return {
-      isAgama
     }
   },
 })

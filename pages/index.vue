@@ -81,21 +81,22 @@
         <div class="menu-kurir">
           <div class="text-center">
             <p class="text-lg font-bold">Kurir</p>
+            <!-- <button @click="cek">cek</button> -->
           </div>
-          <div class="mt-4 text-white font-semibold overflow-y-auto section-kurir">
-            <div v-for="(x, index) in biayaJne" :key="index" class="kurir flex mb-4 p-2 rounded-xl">
+          <div v-if="!loading" class="mt-4 text-white font-semibold overflow-y-auto section-kurir">
+            <div v-for="x in biayaJne" :key="x.description" class="kurir flex mb-4 p-2 rounded-xl">
               <label for="one" class="ml-4">
                 <h1>JNE</h1>
                 <p>{{x.service}} : {{x.cost[0].value}}</p>
               </label>
             </div>
-            <div v-for="(x, index) in biayaPos" :key="index" class="kurir flex mb-4 p-2 rounded-xl">
+            <div v-for="x in biayaPos" :key="x.description" class="kurir flex mb-4 p-2 rounded-xl">
               <label for="one" class="ml-4">
                 <h1>POS</h1>
                 <p>{{x.service}} : {{x.cost[0].value}}</p>
               </label>
             </div>
-            <div v-for="(x, index) in biayaTiki" :key="index" class="kurir flex mb-4 p-2 rounded-xl">
+            <div v-for="x in biayaTiki" :key="x.description" class="kurir flex mb-4 p-2 rounded-xl">
               <label for="one" class="ml-4">
                 <h1>Tiki</h1>
                 <p>{{x.service}} : {{x.cost[0].value}}</p>
@@ -145,6 +146,7 @@ export default {
     const biayaTiki = ref('')
     const picked = ref('')
     const isCekResi = ref(false)
+    const loading = ref(true)
     const myTheme = {
       background: 'white',
       color: 'black',
@@ -159,6 +161,7 @@ export default {
       berat,
       province,
       city,
+      loading,
       myTheme,
       cityAsal,
       asalProv,
@@ -188,8 +191,8 @@ export default {
 
 
     function cek() {
-      console.log('asal',asalCity.value)
-      console.log('tujuan',selectedCity.value)
+      console.log('biayaJne',biayaJne.value)
+      console.log('biayaPos',biayaPos.value)
     }
 
     async function setProv(){
@@ -212,6 +215,7 @@ export default {
     }
 
     async function cekBiaya(){
+      loading.value = true
       cekBiayaJne()
       cekBiayaPos()
       cekBiayaTiki()
@@ -222,6 +226,7 @@ export default {
       // const data = await axios.get(`/api/v1${url}`, {headers});
       const data = await axios.get(`${url}`);
       biayaJne.value = data?.data?.rajaongkir?.results[0]?.costs
+      loading.value = false
     }
 
     async function cekBiayaPos(){

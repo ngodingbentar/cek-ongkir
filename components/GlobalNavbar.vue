@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header font-arabic font-bold" :style="{ background: theme.background, color: theme.color }">
+  <header class="app-header font-bold" :style="{ background: theme.background, color: theme.color }">
     <div class="inner container">
       <div class="start">
         <div class="box ">
@@ -73,15 +73,6 @@ export default defineComponent({
   height: 25px;
 }
 
-@font-face {
-  font-family: "lpmq";
-  src: url(/fonts/lpmq.otf) format("opentype");
-  font-display: swap;
-}
-.font-arabic{
-  font-family: "lpmq", Arial, sans-serif;
-  line-height: 2;
-}
 .app-header {
   @apply fixed w-full top-0 py-4;
   @apply z-30 select-none;
